@@ -20,7 +20,7 @@ class BloomFilters:
 
         return self
 
-    def check(self, item: str):
+    def contains(self, item: str):
         for i in range(self.hash_count):
             digest_index = self.get_digest_index(item, i)
             if self.bit_array[digest_index] is False:
@@ -42,12 +42,12 @@ class BloomFilters:
 
     @staticmethod
     def get_size(n: int, p: float) -> int:
-        m = -(n * math.log(p))/(math.log(2)**2) 
+        m = -(n * math.log(p)) / (math.log(2) ** 2)
 
         return int(m)
 
     @staticmethod
     def get_hash_count(m: int, n: int) -> int:
-        k = (m/n) * math.log(2)
+        k = (m / n) * math.log(2)
 
         return int(k)
