@@ -63,7 +63,7 @@ def perf():
         + f"- {for_loop_proc_time / bloom_filters_proc_time:.2f} "
         + f"times faster than for loop\n"
         f"- {in_operator_proc_time / bloom_filters_proc_time:.2f} "
-        + f"times faster than 'in' operator"
+        + f"times faster than 'in' operator (Boyer-Moore algorithm)"
     )
     print("\n")
 
