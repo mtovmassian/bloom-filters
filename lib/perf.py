@@ -1,4 +1,5 @@
 import time
+import sys
 from lib import BloomFilters
 
 
@@ -42,17 +43,28 @@ def perf():
     in_operator_proc_time = test_in_operator()
     bloom_filters_proc_time = test_bloom_filters()
 
-    print("\n")
+    FIFTY_THOUSAND_WORDS_size = sys.getsizeof(FIFTY_THOUSAND_WORDS)
+    bf_bit_field_size = sys.getsizeof(bf.bit_field)
+
+    print("MEMORY USAGE\n============")
+    print(
+        "FIFTY_THOUSAND_WORDS list size:"
+        + f"\n|___{FIFTY_THOUSAND_WORDS_size} bytes"
+    )
+    print(
+        "Bloom filters size: "
+        + f"\n|___{bf_bit_field_size} bytes"
+    )
+
+    print("\nSEARCH\n======")
     print(
         f"Checking word \"{WORD_TO_CHECK}\" "
         + f"with for loop:\n|____{for_loop_proc_time} ms"
     )
-    print("\n")
     print(
         f"Checking word \"{WORD_TO_CHECK}\" "
         + f"with 'in' operator:\n|____{in_operator_proc_time} ms"
     )
-    print("\n")
     print(
         f"Checking word \"{WORD_TO_CHECK}\" "
         + f"with Bloom filters:\n|____{bloom_filters_proc_time} ms"
@@ -60,10 +72,12 @@ def perf():
     print("\n")
     print(
         "Bloom filters are:\n"
-        + f"- {for_loop_proc_time / bloom_filters_proc_time:.2f} "
-        + f"times faster than for loop\n"
-        f"- {in_operator_proc_time / bloom_filters_proc_time:.2f} "
-        + f"times faster than 'in' operator (Boyer-Moore algorithm)"
+        + f"- {FIFTY_THOUSAND_WORDS_size / bf_bit_field_size:.0f}"
+        + " times memory efficient\n"
+        + f"- {for_loop_proc_time / bloom_filters_proc_time:.0f} "
+        + "times faster than for loop\n"
+        f"- {in_operator_proc_time / bloom_filters_proc_time:.0f} "
+        + "times faster than 'in' operator (Boyer-Moore algorithm)"
     )
     print("\n")
 
